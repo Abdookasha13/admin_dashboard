@@ -1,0 +1,16 @@
+@if(loading){
+<app-loader></app-loader>
+} @else{
+<div class="row row-cols-1 row-cols-2 row-cols-3 row-cols-4 g-3">
+  @for (category of filteredCategories; track $index) {
+  <div class="col">
+    <app-category-card [category]="category" (deleted)="removeCategory($event)"></app-category-card>
+  </div>
+  }@empty {
+  <div class="no-result">
+    <img src="no-result.svg" alt="no result" class="no-result-img" />
+  </div>
+  }
+</div>
+
+}

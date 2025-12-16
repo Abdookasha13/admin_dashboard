@@ -1,0 +1,113 @@
+@if(serviceId){
+<h1 class="title-form mb-3">Edit Service</h1>
+} @else {
+<h1 class="title-form mb-3">Add Service</h1>
+}
+
+<form (ngSubmit)="addService()" #form="ngForm" class="add-update-form">
+  <div class="row g-4 align-items-start">
+    <div class="col-lg-8">
+      <div class="left p-4">
+        <!-- ----------------title------------------- -->
+        <div class="mb-4">
+          <label for="title" class="form-label">Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            placeholder="Enter service title"
+            name="title"
+            required
+            [(ngModel)]="service.title"
+            #title="ngModel"
+            [ngClass]="{ 'is-invalid': (title.touched || title.dirty) && title.invalid }"
+          />
+          @if(title.touched && title.errors) {
+          <div class="invalid-feedback">
+            @if(title.errors['required']) {
+            <span>Title is required.</span>
+            } @if(title.errors['minlength']) {
+            <span>Title must be at least 3 characters.</span>
+            }
+          </div>
+          }
+        </div>
+        <!-- ----------------------description---------------------- -->
+        <div class="mb-4">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            class="form-control"
+            id="description"
+            rows="3"
+            placeholder="Enter service description"
+            name="description"
+            required
+            [(ngModel)]="service.description"
+            #description="ngModel"
+            [ngClass]="{
+              'is-invalid': (description.touched || description.dirty) && description.invalid
+            }"
+          ></textarea>
+          @if(description.touched && description.errors) {
+          <div class="invalid-feedback">
+            @if(description.errors['required']) {
+            <span>Description is required.</span>
+            } @if(description.errors['minlength']) {
+            <span>Description must be at least 10 characters.</span>
+            }
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="right p-4">
+        <!-- ----------------service icon---------------------- -->
+        <div class="mb-4">
+          <label for="icon" class="form-label">Service Icon</label>
+          <select
+            class="form-select"
+            id="icon"
+            name="icon"
+            required
+            [(ngModel)]="service.icon"
+            #icon="ngModel"
+            [ngClass]="{ 'is-invalid': (icon.touched || icon.dirty) && icon.invalid }"
+          >
+            <option value="undefined" disabled selected>Choose an icon</option>
+            @for(iconOption of serviceIcons; track iconOption.value) {
+            <option [value]="iconOption.value">
+              {{ iconOption.label }}
+            </option>
+            }
+          </select>
+          @if(service.icon) {
+          <div class="mt-3 text-center">
+            <div class="icon-preview-wrapper">
+              <i class="{{ service.icon }}" style="font-size: 3rem; color: #0ab99d"></i>
+            </div>
+            <small class="text-muted d-block mt-2">{{ service.icon }}</small>
+          </div>
+          } @if(icon.touched && icon.errors) {
+          <div class="invalid-feedback">
+            @if(icon.errors['required']) {
+            <span>Service icon is required.</span>
+            }
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center mt-5">
+    @if(serviceId) {
+    <button type="submit" class="btn-add" [disabled]="form.invalid">Update Service</button>
+    } @else {
+    <button type="submit" class="btn-add" [disabled]="form.invalid || !service.icon">
+      Add Service
+    </button>
+    }
+  </div>
+</form>

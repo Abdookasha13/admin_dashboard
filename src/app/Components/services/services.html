@@ -1,0 +1,15 @@
+@if(loading){
+<app-loader></app-loader>
+} @else {
+<div class="row row-cols-1 row-cols-2 row-cols-3 row-cols-4 g-3">
+  @for (service of filteredServices; track $index) {
+  <div class="col">
+    <app-service-card [service]="service" (deleted)="removeService($event)"></app-service-card>
+  </div>
+  }@empty {
+  <div class="no-result">
+    <img src="no-result.svg" alt="no result" class="no-result-img" />
+  </div>
+  }
+</div>
+}

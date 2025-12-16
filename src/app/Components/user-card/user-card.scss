@@ -1,0 +1,50 @@
+.user-card {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.card-border-top {
+  width: 100%;
+  height: 5px;
+  background-color: #0ab99d;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  margin: auto;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #0ab99d;
+  box-shadow: 0 4px 12px rgba(10, 185, 157, 0.15);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.user-name {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d3748;
+}
+
+.user-role {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #718096;
+}

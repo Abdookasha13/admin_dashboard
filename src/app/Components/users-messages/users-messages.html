@@ -1,0 +1,98 @@
+@if(loading){
+<app-loader></app-loader>
+} @else{
+<h1 class="users-messages-title mb-4">Users Messages</h1>
+
+<div class="row align-items-center">
+  <div class="col-md-9">
+    <div class="input-search d-flex align-items-center bg-white">
+      <span class="ps-2">
+        <i class="bi bi-search"></i>
+      </span>
+      <input
+        type="text"
+        class="form-control border-0 bg-white"
+        placeholder="Search by name, email, or subject..."
+        [(ngModel)]="searchTerm"
+        (input)="onSearch()"
+      />
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="filter d-flex align-content-center justify-content-between">
+      <span [class.active]="currentFilter === 'all'" (click)="setFilter('all')">All</span>
+      <span [class.active]="currentFilter === 'unread'" (click)="setFilter('unread')">Unread</span>
+      <span [class.active]="currentFilter === 'read'" (click)="setFilter('read')">Read</span>
+    </div>
+  </div>
+</div>
+
+<div class="messages-table mt-4">
+  <div class="messages-list py-3 px-3">
+    <ul class="header-row">
+      <li>NAME</li>
+      <li>EMAIL</li>
+      <li>SUBJECT</li>
+      <li>MESSAGE</li>
+      <li>DATE</li>
+      <li class="text-center">ACTIONS</li>
+    </ul>
+  </div>
+
+  @for(message of messages ; track $index){
+
+  <div class="message-item">
+    <ul class="data-row py-4 px-3" [class.read-message]="message.isRead">
+      <li>{{ message.name }}</li>
+      <li>{{ message.email }}</li>
+      <li>{{ message.subject }}</li>
+      <li>{{ message.message }}</li>
+      <li>{{ message.createdAt | date : 'MMM d, yy' }}</li>
+      <li class="d-flex justify-content-center gap-2">
+        <button class="btn btn-sm btn-eye" (click)="openMessgaeModal(message)">
+          <i class="bi bi-eye"></i>
+        </button>
+        <button class="btn btn-sm btn-danger" (click)="openDeleteModal(message._id)">
+          <i class="bi bi-trash3"></i>
+        </button>
+      </li>
+    </ul>
+  </div>
+  }@empty {
+  <div class="no-result">
+    <img src="no-result.svg" alt="no result" class="no-result-img" />
+  </div>
+  }
+</div>
+}
+
+<!-- ============== DELETE MODAL ============== -->
+
+<div class="modal-backdrop" [class.show-backdrop]="isDeleteModalOpen">
+  <div class="modal-box" [class.show-box]="isDeleteModalOpen">
+    <div class="modal-icon reject">
+      <i class="bi bi-x-circle-fill"></i>
+    </div>
+    <h3 class="modal-title">Confirm Delete</h3>
+    <h3 class="modal-message">Are you sure you want to delete this message?</h3>
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="closeDeleteModal()">Cancel</button>
+      <button class="btn-confirm reject" (click)="confirmDelete()">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============== show message MODAL ============== -->
+<div class="modal-backdrop" [class.show-backdrop]="isMessgaeModalOpen">
+  <div class="modal-box" [class.show-box]="isMessgaeModalOpen">
+    <div class="modal-icon info">
+      <i class="bi bi-envelope-open-fill"></i>
+    </div>
+    <h3 class="modal-title">Message Details</h3>
+    <p class="modal-message">{{ messageContent }}</p>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="closeMessageModal()">Close</button>
+    </div>
+  </div>
+</div>

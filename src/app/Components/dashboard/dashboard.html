@@ -1,0 +1,202 @@
+<div class="dashboard p-4">
+  <!-- Header Section -->
+  <div class="header-section mb-4">
+    <h2 class="welcome-title">Welcome back, {{ adminData.name }}!</h2>
+    <p class="welcome-subtitle">Here's what's happening with your platform today.</p>
+  </div>
+
+  <!-- Statistics Cards -->
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-5">
+    <div class="col">
+      <div class="stat-card">
+        <div class="stat-icon users">
+          <i class="bi bi-people-fill"></i>
+        </div>
+        <div class="stat-content">
+          <h6 class="stat-label">Total Users</h6>
+          <h3 class="stat-value">{{ totalUsers }}</h3>
+          <p class="stat-detail">
+            <span class="text-success">{{ totalStudents }} Students</span> ·
+            <span class="text-info">{{ totalInstructors }} Instructors</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="stat-card">
+        <div class="stat-icon categories">
+          <i class="bi bi-grid-fill"></i>
+        </div>
+        <div class="stat-content">
+          <h6 class="stat-label">Categories</h6>
+          <h3 class="stat-value">{{ totalCategories }}</h3>
+          <p class="stat-detail">Course categories</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="stat-card">
+        <div class="stat-icon events">
+          <i class="bi bi-calendar-event-fill"></i>
+        </div>
+        <div class="stat-content">
+          <h6 class="stat-label">Events</h6>
+          <h3 class="stat-value">{{ totalEvents }}</h3>
+          <p class="stat-detail">Upcoming events</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="stat-card">
+        <div class="stat-icon messages">
+          <i class="bi bi-envelope-fill"></i>
+        </div>
+        <div class="stat-content">
+          <h6 class="stat-label">Messages</h6>
+          <h3 class="stat-value">{{ totalMessages }}</h3>
+          <p class="stat-detail">
+            <span class="text-danger">{{ unreadMessages }} Unread</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="row g-4">
+    <!-- Users Distribution Chart -->
+    <div class="col-12 col-lg-4">
+      <div class="chart-card">
+        <div class="chart-header">
+          <h5 class="chart-title">
+            <i class="bi bi-people-fill me-2"></i>
+            Users Distribution
+          </h5>
+        </div>
+        <div class="chart-body">
+          <canvas
+            baseChart
+            #usersChart
+            [data]="usersChartData"
+            [type]="usersChartType"
+            [options]="usersChartOptions"
+          >
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Platform Statistics Chart -->
+    <div class="col-12 col-lg-4">
+      <div class="chart-card">
+        <div class="chart-header">
+          <h5 class="chart-title">
+            <i class="bi bi-bar-chart-fill me-2"></i>
+            Platform Statistics
+          </h5>
+        </div>
+        <div class="chart-body">
+          <canvas
+            baseChart
+            #statsChart
+            [data]="statsChartData"
+            [type]="statsChartType"
+            [options]="statsChartOptions"
+          >
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Messages Status Chart -->
+    <div class="col-12 col-lg-4">
+      <div class="chart-card">
+        <div class="chart-header">
+          <h5 class="chart-title">
+            <i class="bi bi-envelope-fill me-2"></i>
+            Messages Status
+          </h5>
+        </div>
+        <div class="chart-body">
+          <canvas
+            baseChart
+            #messagesChart
+            [data]="messagesChartData"
+            [type]="messagesChartType"
+            [options]="messagesChartOptions"
+          >
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Stats Row -->
+  <div class="row g-4 mt-4">
+    <div class="col-12 col-md-4">
+      <div class="quick-stat-card">
+        <div class="d-flex align-items-center justify-content-between">
+          <div>
+            <h6 class="text-muted mb-1">Total Services</h6>
+            <h3 class="mb-0">{{ totalServices }}</h3>
+          </div>
+          <div class="quick-stat-icon services">
+            <i class="bi bi-briefcase-fill"></i>
+          </div>
+        </div>
+        <div class="progress mt-3" style="height: 6px">
+          <div
+            class="progress-bar bg-warning"
+            role="progressbar"
+            [style.width.%]="(totalServices / 10) * 100"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <div class="quick-stat-card">
+        <div class="d-flex align-items-center justify-content-between">
+          <div>
+            <h6 class="text-muted mb-1">Pending Lessons</h6>
+            <h3 class="mb-0">{{ totalLessons }}</h3>
+          </div>
+          <div class="quick-stat-icon lessons">
+            <i class="bi bi-journal-text"></i>
+          </div>
+        </div>
+        <div class="progress mt-3" style="height: 6px">
+          <div
+            class="progress-bar bg-purple"
+            role="progressbar"
+            [style.width.%]="(totalLessons / 10) * 100"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <div class="quick-stat-card">
+        <div class="d-flex align-items-center justify-content-between">
+          <div>
+            <h6 class="text-muted mb-1">Unread Messages</h6>
+            <h3 class="mb-0">{{ unreadMessages }}</h3>
+          </div>
+          <div class="quick-stat-icon danger">
+            <i class="bi bi-exclamation-circle-fill"></i>
+          </div>
+        </div>
+        <div class="progress mt-3" style="height: 6px">
+          <div
+            class="progress-bar bg-danger"
+            role="progressbar"
+            [style.width.%]="totalMessages > 0 ? (unreadMessages / totalMessages) * 100 : 0"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

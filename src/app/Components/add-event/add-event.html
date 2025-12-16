@@ -1,0 +1,163 @@
+@if(eventId) {
+<h1 class="title-form mb-3">Edit Event</h1>
+} @else {
+<h1 class="title-form mb-3">Add Event</h1>
+}
+
+<form (ngSubmit)="addEvent()" #form="ngForm" class="add-update-form">
+  <div class="row g-4 align-items-start">
+    <div class="col-md-6 col-lg-8">
+      <div class="left p-5">
+        <!-- ----------------------title---------------------- -->
+        <div class="mb-4">
+          <label for="title" class="form-label">Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            placeholder="Enter event title"
+            name="title"
+            required
+            [(ngModel)]="event.title"
+            #title="ngModel"
+            [ngClass]="{ 'is-invalid': (title.touched || title.dirty) && title.invalid }"
+          />
+          @if(title.touched && title.errors) {
+          <div class="invalid-feedback">
+            @if(title.errors['required']) {
+            <span>Title is required.</span>
+            } @if(title.errors['minlength']) {
+            <span>Title must be at least 3 characters.</span>
+            }
+          </div>
+          }
+        </div>
+        <!-- ----------------------description---------------------- -->
+        <div class="mb-4">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            class="form-control"
+            id="description"
+            rows="3"
+            placeholder="Enter event description"
+            name="description"
+            required
+            [(ngModel)]="event.description"
+            #description="ngModel"
+            [ngClass]="{
+              'is-invalid': (description.touched || description.dirty) && description.invalid
+            }"
+          ></textarea>
+          @if(description.touched && description.errors) {
+          <div class="invalid-feedback">
+            @if(description.errors['required']) {
+            <span>Description is required.</span>
+            } @if(description.errors['minlength']) {
+            <span>Description must be at least 10 characters.</span>
+            }
+          </div>
+          }
+        </div>
+        <div class="row g-4">
+          <!-- ----------------------date---------------------- -->
+          <div class="col-lg-4">
+            <label for="date" class="form-label">Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="date"
+              name="date"
+              required
+              [(ngModel)]="event.date"
+              #date="ngModel"
+              [ngClass]="{ 'is-invalid': (date.touched || date.dirty) && date.invalid }"
+            />
+            @if(date.touched && date.errors) {
+            <div class="invalid-feedback">
+              <span>Date is required.</span>
+            </div>
+            }
+          </div>
+          <!-- ---------------location---------------------- -->
+          <div class="col-lg-4">
+            <label for="location" class="form-label">Location</label>
+            <input
+              type="text"
+              class="form-control"
+              id="location"
+              placeholder="Enter event location"
+              name="location"
+              required
+              [(ngModel)]="event.location"
+              #location="ngModel"
+              [ngClass]="{ 'is-invalid': (location.touched || location.dirty) && location.invalid }"
+            />
+            @if(location.touched && location.errors) {
+            <div class="invalid-feedback">
+              @if(location.errors['required']) {
+              <span>Location is required.</span>
+              } @if(location.errors['minlength']) {
+              <span>Location must be at least 3 characters.</span>
+              }
+            </div>
+            }
+          </div>
+          <!-- ------------------time------------------ -->
+          <div class="col-lg-4">
+            <label for="time" class="form-label">Time</label>
+            <input
+              type="time"
+              class="form-control"
+              id="time"
+              name="time"
+              required
+              [(ngModel)]="event.time"
+              #time="ngModel"
+              [ngClass]="{ 'is-invalid': (time.touched || time.dirty) && time.invalid }"
+            />
+            @if(time.touched && time.errors) {
+            <div class="invalid-feedback">
+              <span>Time is required.</span>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+      <div class="right p-4">
+        <!-- ----------------event image---------------------- -->
+        <div class="custom-file-upload">
+          <label for="image" class="form-label">Event Image</label>
+          <input
+            type="file"
+            accept="image/*"
+            class="form-control"
+            id="image"
+            name="image"
+            required
+            (change)="uploadImage($event)"
+          />
+          @if(uploading){
+          <label for="image" class="upload-btn">Uploading...</label>
+          } @else {
+          <label for="image" class="upload-btn">Upload Image</label>
+          }
+          @if(preview){
+          <div class="image-preview mt-3">
+            <img [src]="preview" alt="Event Image" class="img-fluid" />
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center mt-5">
+    @if(eventId) {
+    <button type="submit" class="btn-add" [disabled]="form.invalid">Update Event</button>
+    } @else {
+    <button type="submit" class="btn-add" [disabled]="form.invalid || !event.eventImage">Add Event</button>
+    }
+  </div>
+</form>

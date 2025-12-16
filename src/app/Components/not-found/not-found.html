@@ -1,0 +1,37 @@
+<div class="not-found-container">
+  <div class="not-found-content">
+    <!-- 404 Image -->
+    <div class="image-wrapper">
+      <img src="404.jpg" alt="404 Not Found" class="not-found-image" />
+    </div>
+
+    <!-- Content -->
+    <div class="text-content">
+      <h1 class="error-code">404</h1>
+      <h2 class="error-title">Oops! Page Not Found</h2>
+      <p class="error-message">
+        The page you are looking for might have been removed, had its name changed, or is
+        temporarily unavailable.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button class="btn-primary" (click)="goHome()">
+          <i class="bi bi-house-door-fill me-2"></i>
+          Go to Dashboard
+        </button>
+        <button class="btn-secondary" (click)="goBack()">
+          <i class="bi bi-arrow-left me-2"></i>
+          Go Back
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Decorative Elements -->
+  <div class="decorative-circles">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+    <div class="circle circle-3"></div>
+  </div>
+</div>

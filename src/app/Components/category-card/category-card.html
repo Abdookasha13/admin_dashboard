@@ -1,0 +1,28 @@
+<div class="category-card">
+  <div class="wrapper-icon">
+    <i class="{{ category.icon }}"></i>
+  </div>
+
+  <h5 class="category-name">{{ category.name }}</h5>
+  <div class="btns d-flex justify-content-between mt-3">
+    <button class="btn edite" (click)="navigateToEdit()">Edit</button>
+    <button class="btn btn-danger" (click)="openDeleteModal()">Delete</button>
+  </div>
+</div>
+
+<!-- ============== DELETE MODAL ============== -->
+
+<div class="modal-backdrop" [class.show-backdrop]="isDeleteModalOpen">
+  <div class="modal-box" [class.show-box]="isDeleteModalOpen">
+    <div class="modal-icon reject">
+      <i class="bi bi-x-circle-fill"></i>
+    </div>
+    <h3 class="modal-title">Confirm Delete</h3>
+    <h3 class="modal-message">Are you sure you want to delete this category?</h3>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="closeDeleteModal()">Cancel</button>
+      <button class="btn-confirm reject" (click)="confirmDelete()">Confirm</button>
+    </div>
+  </div>
+</div>

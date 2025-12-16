@@ -1,0 +1,60 @@
+<div class="wrapper">
+    <h2 class="title-form mb-3 pt-3 text-center">Login</h2>
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <form (ngSubmit)="login(email.value, password.value)" #loginForm="ngForm" class="login-form mx-auto">
+          <!-- -------------------email------------------- -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="Enter your email"
+              name="email"
+              required
+              #email="ngModel"
+              ngModel
+              [ngClass]="{ 'is-invalid': (email.touched || email.dirty) && email.invalid }"
+            />
+            @if(email.touched && email.errors) {
+            <div class="invalid-feedback">
+              @if(email.errors['required']) {
+              <span>Email is required.</span>
+              } @if(email.errors['email']) {
+              <span>Enter a valid email.</span>
+              }
+            </div>
+            }
+          </div>
+          <!-- -------------------password------------------- -->
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="Enter your password"
+              name="password"
+              required
+              #password="ngModel"
+              ngModel
+              [ngClass]="{ 'is-invalid': (password.touched || password.dirty) && password.invalid }"
+            />
+            @if(password.touched && password.errors) {
+            <div class="invalid-feedback">
+              @if(password.errors['required']) {
+              <span>Password is required.</span>
+              }
+            </div>
+            }
+          </div>
+          <button type="submit" class="btn-add" [disabled]="loginForm.invalid">Login</button>
+        </form>
+      </div>
+
+      <div class="col-md-6 d-none d-md-block text-center">
+        <img src="Login-amico.svg" alt="Login Illustration" class="img-fluid w-75" />
+      </div>
+    </div>
+</div>

@@ -1,0 +1,209 @@
+@if(userId){
+<h1 class="title-form mb-3">Edit User</h1>
+} @else {
+<h1 class="title-form mb-3">Add User</h1>
+}
+
+<form (ngSubmit)="addUser()" #userForm="ngForm" class="add-update-form">
+  <div class="row g-4 align-items-start">
+    <div class="col-lg-8">
+      <div class="left p-4">
+        <div class="row g-4 mb-4">
+          <!-- -------------------name------------------- -->
+          <div class="col-lg-6">
+            <label for="name" class="form-label">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              placeholder="Enter user name"
+              name="name"
+              required
+              [(ngModel)]="user.name"
+              #name="ngModel"
+              [ngClass]="{ 'is-invalid': (name.touched || name.dirty) && name.invalid }"
+            />
+            @if(name.touched && name.errors) {
+            <div class="invalid-feedback">
+              @if(name.errors['required']) {
+              <span>Name is required.</span>
+              } @if(name.errors['minlength']) {
+              <span>Name must be at least 3 characters.</span>
+              }
+            </div>
+            }
+          </div>
+
+          <!-- -------------------email------------------- -->
+          <div class="col-lg-6">
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="Enter user email"
+              name="email"
+              required
+              [(ngModel)]="user.email"
+              #email="ngModel"
+              [ngClass]="{ 'is-invalid': (email.touched || email.dirty) && email.invalid }"
+            />
+            @if(email.touched && email.errors) {
+            <div class="invalid-feedback">
+              @if(email.errors['required']) {
+              <span>Email is required.</span>
+              } @if(email.errors['email']) {
+              <span>Enter a valid email.</span>
+              }
+            </div>
+            }
+          </div>
+        </div>
+
+        <div class="row g-4 mb-4">
+          <!-- -------------------password------------------- -->
+          <div class="col-lg-6">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="Enter user password"
+              name="password"
+              required
+              [(ngModel)]="user.password"
+              #password="ngModel"
+              [ngClass]="{ 'is-invalid': (password.touched || password.dirty) && password.invalid }"
+            />
+            @if(password.touched && password.errors) {
+            <div class="invalid-feedback">
+              @if(password.errors['required']) {
+              <span>Password is required.</span>
+              } @if(password.errors['minlength']) {
+              <span>Password must be at least 6 characters.</span>
+              }
+            </div>
+            }
+          </div>
+
+          <!-- -------------------role------------------- -->
+          <div class="col-lg-6">
+            <label for="role" class="form-label">Role</label>
+            <select
+              class="form-select "
+              id="role"
+              name="role"
+              required
+              [(ngModel)]="user.role"
+              #role="ngModel"
+              [ngClass]="{ 'is-invalid': (role.touched || role.dirty) && role.invalid }"
+            >
+              <option value="instructor">Instructor</option>
+              <option value="student" selected>Student</option>
+              <option value="admin">Admin</option>
+            </select>
+            @if(role.touched && role.errors) {
+            <div class="invalid-feedback">
+              @if(role.errors['required']) {
+              <span>Role is required.</span>
+              }
+            </div>
+            }
+          </div>
+        </div>
+
+        @if(user.role === 'instructor') {
+        <div class="row g-4 mb-4">
+          <!-- -------------------expertise------------------- -->
+          <div class="col-lg-6">
+            <label for="expertise" class="form-label">Expertise</label>
+            <input
+              type="text"
+              class="form-control"
+              id="expertise"
+              placeholder="Enter instructor expertise"
+              name="expertise"
+              required
+              [(ngModel)]="user.expertise"
+              #expertise="ngModel"
+              [ngClass]="{
+                'is-invalid': (expertise.touched || expertise.dirty) && expertise.invalid
+              }"
+            />
+            @if(expertise.touched && expertise.errors) {
+            <div class="invalid-feedback">
+              @if(expertise.errors['required']) {
+              <span>Expertise is required for instructors.</span>
+              }
+            </div>
+            }
+          </div>
+          <!-- -------------------experience------------------- -->
+          <div class="col-lg-6">
+            <label for="experience" class="form-label">Experience (years)</label>
+            <input
+              type="number"
+              class="form-control"
+              id="experience"
+              placeholder="Enter years of experience"
+              name="experience"
+              required
+              [(ngModel)]="user.experience"
+              #experience="ngModel"
+              [ngClass]="{
+                'is-invalid': (experience.touched || experience.dirty) && experience.invalid
+              }"
+            />
+            @if(experience.touched && experience.errors) {
+            <div class="invalid-feedback">
+              @if(experience.errors['required']) {
+              <span>Experience is required for instructors.</span>
+              } @if(experience.errors['min']) {
+              <span>Experience cannot be negative.</span>
+              }
+            </div>
+            }
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="right p-4">
+        <!-- -------------------profile image------------------- -->
+        <div class="custom-file-upload">
+          <label for="image" class="form-label">Profile Image</label>
+          <input
+            type="file"
+            accept="image/*"
+            class="form-control"
+            id="image"
+            name="image"
+            required
+            (change)="uploadImage($event)"
+          />
+          @if(uploading){
+          <label for="image" class="upload-btn">Uploading...</label>
+          } @else {
+          <label for="image" class="upload-btn">Upload Image</label>
+          } @if(preview){
+          <div class="image-preview mt-3">
+            <img [src]="preview" alt="Service Image" class="img-fluid" />
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center mt-5">
+    @if(userId){
+    <button type="submit" class="btn-add" [disabled]="userForm.invalid">Update User</button>
+    } @else {
+    <button type="submit" class="btn-add" [disabled]="userForm.invalid || !user.profileImage">
+      Add User
+    </button>
+    }
+  </div>
+</form>

@@ -1,0 +1,26 @@
+@if(loading){
+<app-loader></app-loader>
+} @else{ @if(filteredUsers.length > 0) {
+<h2 class="role-title badge">Students</h2>
+<div class="row row-cols-1 row-cols-2 row-cols-3 row-cols-4 g-3 mb-5">
+  @for(user of filteredUsers; track $index) { @if(user.role == 'student'){
+  <div class="col">
+    <app-user-card [user]="user" (deleted)="removeUser($event)"></app-user-card>
+  </div>
+  } }
+</div>
+
+<h2 class="role-title badge">Instructors</h2>
+<div class="row row-cols-1 row-cols-2 row-cols-3 row-cols-4 g-3">
+  @for(user of filteredUsers; track $index) { @if(user.role == 'instructor'){
+  <div class="col">
+    <app-user-card [user]="user" (deleted)="removeUser($event)"></app-user-card>
+  </div>
+  } }
+</div>
+} @else {
+<div class="no-result">
+  <img src="no-result.svg" alt="no result" class="no-result-img" />
+</div>
+
+} }

@@ -1,0 +1,73 @@
+@if(categoryId) {
+<h1 class="title-form mb-3">Edit Category</h1>
+} @else {
+<h1 class="title-form mb-3">Add Category</h1>
+}
+
+<form (ngSubmit)="addCategory()" #form="ngForm" class="add-update-form p-4 w-75 mx-auto">
+  <!-- -------------name---------------------- -->
+  <div class="mb-4">
+    <label for="name" class="form-label">Category Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      placeholder="Enter category name"
+      name="name"
+      required
+      [(ngModel)]="category.name"
+      #name="ngModel"
+      [ngClass]="{ 'is-invalid': (name.touched || name.dirty) && name.invalid }"
+    />
+    @if(name.touched && name.errors) {
+    <div class="invalid-feedback">
+      @if(name.errors['required']) {
+      <span>Category name is required.</span>
+      } @if(name.errors['minlength']) {
+      <span>Category name must be at least 3 characters.</span>
+      }
+    </div>
+    }
+  </div>
+
+  <!-- ----------------icon---------------------- -->
+  <div class="mb-4">
+    <label for="icon" class="form-label">Category Icon</label>
+    <select
+      class="form-select"
+      id="icon"
+      name="icon"
+      required
+      [(ngModel)]="category.icon"
+      #icon="ngModel"
+      [ngClass]="{ 'is-invalid': (icon.touched || icon.dirty) && icon.invalid }"
+    >
+      <option value="undefined" disabled>Choose an icon</option>
+      @for(iconOption of categoryIcons; track iconOption.icon) {
+      <option [value]="iconOption.icon">
+        {{ iconOption.label }}
+      </option>
+      }
+    </select>
+    @if(category.icon) {
+    <div class="mt-2 d-flex align-items-center gap-2">
+      <span class="text-muted">Preview:</span>
+      <i class="{{ category.icon }}" style="font-size: 1.5rem; color: #0ab99d"></i>
+      <span class="text-muted">{{ category.icon }}</span>
+    </div>
+    } @if(icon.touched && icon.errors) {
+    <div class="invalid-feedback">
+      @if(icon.errors['required']) {
+      <span>Category icon is required.</span>
+      }
+    </div>
+    }
+  </div>
+
+  <!-- -------------submit button---------------------- -->
+  @if(categoryId){
+  <button type="submit" class="btn-add" [disabled]="form.invalid">Update Category</button>
+  } @else{
+  <button type="submit" class="btn-add" [disabled]="form.invalid">Add Category</button>
+  }
+</form>

@@ -1,0 +1,179 @@
+<div class="min-vh-100 sidebar d-flex flex-column">
+  <!-- -----------------logo section----------------- -->
+  <div class="logo d-flex align-items-center gap-2">
+    <img src="tabicon.ico" alt="logo" />
+    <div class="logo-text d-flex flex-column">
+      <h1>E-learning</h1>
+      <p>Admin Panel</p>
+    </div>
+  </div>
+
+  <!-- -----------------menu section----------------- -->
+  <div class="menu d-flex flex-column gap-2 p-2">
+    <!-- Dashboard -->
+    <div
+      class="menu-item d-flex align-items-center gap-3 p-2"
+      routerLink="dashboard"
+      routerLinkActive="active"
+    >
+      <i class="bi bi-columns-gap"></i>
+      <a>Dashboard</a>
+    </div>
+
+    <!-- Users with submenu -->
+    <div class="menu-item-wrapper">
+      <div
+        class="menu-item d-flex align-items-center gap-3 p-2"
+        routerLink="users"
+        routerLinkActive="active"
+        (click)="toggleSubmenu('users')"
+      >
+        <i class="bi bi-people-fill"></i>
+        <a>Users</a>
+        <i
+          class="bi submenu-arrow ms-auto"
+          [class.bi-chevron-down]="!openSubmenus['users']"
+          [class.bi-chevron-up]="openSubmenus['users']"
+        ></i>
+      </div>
+      @if (openSubmenus['users']) {
+      <div class="submenu">
+        <div
+          class="submenu-item d-flex align-items-center gap-3 p-2"
+          routerLink="addUser"
+          routerLinkActive="active"
+        >
+          <i class="bi bi-plus-circle"></i>
+          <a>Add New User</a>
+        </div>
+      </div>
+      }
+    </div>
+
+    <!-- Categories with submenu -->
+    <div class="menu-item-wrapper">
+      <div
+        class="menu-item d-flex align-items-center gap-3 p-2"
+        routerLink="categories"
+        routerLinkActive="active"
+        (click)="toggleSubmenu('categories')"
+      >
+        <i class="bi bi-grid-fill"></i>
+        <a>Categories</a>
+        <i
+          class="bi submenu-arrow ms-auto"
+          [class.bi-chevron-down]="!openSubmenus['categories']"
+          [class.bi-chevron-up]="openSubmenus['categories']"
+        ></i>
+      </div>
+      @if (openSubmenus['categories']) {
+      <div class="submenu">
+        <div
+          class="submenu-item d-flex align-items-center gap-3 p-2"
+          routerLink="addCategory"
+          routerLinkActive="active"
+        >
+          <i class="bi bi-plus-circle"></i>
+          <a>Add New Category</a>
+        </div>
+      </div>
+      }
+    </div>
+
+    <!-- Lessons -->
+    <div
+      class="menu-item d-flex align-items-center gap-3 p-2"
+      routerLink="lessons"
+      routerLinkActive="active"
+    >
+      <i class="bi bi-journal-text"></i>
+      <a>Lessons</a>
+    </div>
+
+    <!-- Services with submenu -->
+    <div class="menu-item-wrapper">
+      <div
+        class="menu-item d-flex align-items-center gap-3 p-2"
+        routerLink="services"
+        routerLinkActive="active"
+        (click)="toggleSubmenu('services')"
+      >
+        <i class="bi bi-briefcase-fill"></i>
+        <a>Services</a>
+        <i
+          class="bi submenu-arrow ms-auto"
+          [class.bi-chevron-down]="!openSubmenus['services']"
+          [class.bi-chevron-up]="openSubmenus['services']"
+        ></i>
+      </div>
+      @if (openSubmenus['services']) {
+      <div class="submenu">
+        <div
+          class="submenu-item d-flex align-items-center gap-3 p-2"
+          routerLink="addService"
+          routerLinkActive="active"
+        >
+          <i class="bi bi-plus-circle"></i>
+          <a>Add New Service</a>
+        </div>
+      </div>
+      }
+    </div>
+
+    <!-- Events with submenu -->
+    <div class="menu-item-wrapper">
+      <div
+        class="menu-item d-flex align-items-center gap-3 p-2"
+        routerLink="events"
+        routerLinkActive="active"
+        (click)="toggleSubmenu('events')"
+      >
+        <i class="bi bi-calendar-event-fill"></i>
+        <a>Events</a>
+        <i
+          class="bi submenu-arrow ms-auto"
+          [class.bi-chevron-down]="!openSubmenus['events']"
+          [class.bi-chevron-up]="openSubmenus['events']"
+        ></i>
+      </div>
+      @if (openSubmenus['events']) {
+      <div class="submenu">
+        <div
+          class="submenu-item d-flex align-items-center gap-3 p-2"
+          routerLink="addEvent"
+          routerLinkActive="active"
+        >
+          <i class="bi bi-plus-circle"></i>
+          <a>Add New Event</a>
+        </div>
+      </div>
+      }
+    </div>
+
+    <!-- Users Messages -->
+    <div
+      class="menu-item d-flex align-items-center gap-3 p-2"
+      routerLink="usersMessages"
+      routerLinkActive="active"
+    >
+      <i class="bi bi-envelope-fill"></i>
+      <a>Users Messages</a>
+    </div>
+  </div>
+
+  <!-- -----------------logout section----------------- -->
+  <div class="mt-auto p-2">
+    <div
+      class="menu-item d-flex align-items-center gap-3 p-2"
+      routerLink="settings"
+      routerLinkActive="active"
+    >
+      <i class="bi bi-gear-fill"></i>
+      <a>Settings</a>
+    </div>
+    <div class="menu-item log-out d-flex align-items-center gap-3 p-2" (click)="logout()">
+      <i class="bi bi-box-arrow-right"></i>
+      <a>Logout</a>
+    </div>
+  </div>
+</div>

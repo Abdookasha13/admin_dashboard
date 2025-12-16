@@ -1,0 +1,154 @@
+<div class="lessons-container p-4">
+  @if(loading) {
+  <app-loader></app-loader>
+  } @else {
+  <div class="header mb-4">
+    <h1 class="title">Pending Lessons</h1>
+    <p class="subtitle">Review and approve or reject lessons submitted by instructors</p>
+  </div>
+
+  <div class="lessons-list">
+    @for(lesson of pendingLessons; track lesson._id) {
+    <div class="lesson-row">
+      <div class="lesson-main-info">
+        <div class="lesson-header">
+          <div class="lesson-type-badge">
+            <i [class]="getLessonTypeIcon(lesson.type)"></i>
+            <span>{{ getLessonTypeLabel(lesson.type) }}</span>
+          </div>
+          @if(lesson.isPreview) {
+          <span class="preview-badge">Preview</span>
+          }@else{
+          <span class="preview-badge">Not Preview</span>
+          }
+          <!-- ----------------------btns---------------------- -->
+          <div class="lesson-actions ms-auto">
+            <button class="btn-approve" (click)="openModal(lesson, 'approve')">
+              <i class="bi bi-check-circle-fill"></i>
+              Approve
+            </button>
+            <button class="btn-reject" (click)="openModal(lesson, 'reject')">
+              <i class="bi bi-x-circle-fill"></i>
+              Reject
+            </button>
+          </div>
+        </div>
+        <h3 class="lesson-title">{{ lesson.title }}</h3>
+      </div>
+
+      <div class="lesson-details">
+        <div class="detail-row">
+          <div class="detail-item">
+            <span class="detail-label">
+              <i class="bi bi-book-fill"></i>
+              Course:
+            </span>
+            <span class="detail-value">{{ lesson.course.title || 'N/A' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">
+              <i class="bi bi-person-fill"></i>
+              Instructor:
+            </span>
+            <span class="detail-value">{{ lesson.instructor.name || 'N/A' }}</span>
+          </div>
+          @if(lesson.duration) {
+          <div class="detail-item">
+            <span class="detail-label">
+              <i class="bi bi-clock-fill"></i>
+              Duration:
+            </span>
+            <span class="detail-value">{{ lesson.duration }} min</span>
+          </div>
+          } @if(lesson.videoUrl) {
+          <div class="detail-item">
+            <button class="btn-view-video" (click)="openVideoModal(lesson)">
+              <i class="bi bi-play-circle-fill"></i> Watch Video
+            </button>
+          </div>
+          }
+        </div>
+
+        @if(lesson.content) {
+        <div class="detail-row">
+          <div class="detail-item full-width">
+            <span class="detail-label">
+              <i class="bi bi-text-paragraph"></i>
+              Content:
+            </span>
+            <p class="content-text">{{ lesson.content }}</p>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+    }@empty {
+    <div class="no-result">
+      <img src="no-result.svg" alt="no result" class="no-result-img" />
+    </div>
+    }
+  </div>
+  }
+</div>
+
+<!-- Modal -->
+<div class="modal-backdrop" [class.show-backdrop]="isModalOpen">
+  <div
+    class="modal-box"
+    [class.show-box]="isModalOpen"
+    [class.video-modal-box]="modalAction === 'video'"
+  >
+    @if(modalAction === 'approve') {
+    <div class="modal-icon approve">
+      <i class="bi bi-check-circle-fill"></i>
+    </div>
+    <h3 class="modal-title">Confirm Approval</h3>
+    <p class="modal-message">
+      Are you sure you want to approve the lesson "<strong>{{ selectedLesson?.title }}</strong
+      >"?
+      <br />
+      The lesson will be added to the course and available to students.
+    </p>
+    } @else if(modalAction === 'reject') {
+    <div class="modal-icon reject">
+      <i class="bi bi-x-circle-fill"></i>
+    </div>
+    <h3 class="modal-title">Confirm Rejection</h3>
+    <p class="modal-message">
+      Are you sure you want to reject the lesson "<strong>{{ selectedLesson?.title }}</strong
+      >"?
+      <br />
+      The lesson will be permanently deleted and cannot be recovered.
+    </p>
+    } @else if(modalAction === 'video') {
+    <div class="video-player-container">
+      <button class="video-close-btn" (click)="closeModal()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+      <div class="video-wrapper">
+        <iframe
+          class="video-iframe"
+          [src]="videoUrl"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+        <div class="custom-video-controls">
+          <button class="play-pause-btn" (click)="togglePlayPause()">
+            <i [class]="isPlaying ? 'bi bi-pause-fill' : 'bi bi-play-fill'"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    } @if(modalAction !== 'video') {
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="closeModal()">Cancel</button>
+      @if(modalAction === 'approve') {
+      <button class="btn-confirm approve" (click)="confirmAction()">Confirm Approval</button>
+      } @else {
+      <button class="btn-confirm reject" (click)="confirmAction()">Confirm Rejection</button>
+      }
+    </div>
+    }
+  </div>
+</div>

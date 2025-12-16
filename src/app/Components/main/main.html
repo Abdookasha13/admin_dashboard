@@ -1,0 +1,98 @@
+<div>
+  <!-- -------------navbar section------------- -->
+  <div class="navbar-main px-4 d-flex justify-content-between align-items-center py-2">
+    <!-- navbar search -->
+    <div
+      class="input-group"
+      style="flex: 1; max-width: 500px"
+      [class.d-none]="
+        currentRoute.includes('dashboard') ||
+        currentRoute.includes('usersMessages') ||
+        currentRoute.includes('settings')
+      "
+    >
+      <span class="input-group-text">
+        <i class="bi bi-search"></i>
+      </span>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="searchTerm"
+        (input)="onSearchChange()"
+        [placeholder]="searchPlaceholder"
+      />
+      @if(searchTerm) {
+      <button class="btn btn-link" type="button" (click)="clearSearch()">
+        <i class="bi bi-x-circle-fill"></i>
+      </button>
+      }
+    </div>
+
+    <!-- navbar user profile -->
+    <div class="d-flex align-items-center gap-2 user justify-content-end ms-auto">
+      <div class="notification-icon" (click)="toggleNotifications()">
+        <i class="bi bi-bell"></i>
+        @if(notificationCount > 0) {
+        <span class="notification-badge">{{
+          notificationCount > 99 ? '99+' : notificationCount
+        }}</span>
+        }
+
+        <!-- Notification Dropdown -->
+        @if(showNotifications) {
+        <div class="notification-dropdown" (click)="$event.stopPropagation()">
+          <div class="notification-header">
+            <h6>Notifications</h6>
+            <span class="notification-count-text">{{ notificationCount }} new</span>
+          </div>
+          <div class="notification-list">
+            @if(unreadMessages > 0) {
+            <div class="notification-item" (click)="navigateToMessages()">
+              <div class="notification-icon-wrapper messages">
+                <i class="bi bi-envelope-fill"></i>
+              </div>
+              <div class="notification-content">
+                <h6>Unread Messages</h6>
+                <p>
+                  You have {{ unreadMessages }} unread message{{ unreadMessages > 1 ? 's' : '' }}
+                </p>
+              </div>
+              <i class="bi bi-chevron-right"></i>
+            </div>
+            } @if(pendingLessons > 0) {
+            <div class="notification-item" (click)="navigateToLessons()">
+              <div class="notification-icon-wrapper lessons">
+                <i class="bi bi-journal-text"></i>
+              </div>
+              <div class="notification-content">
+                <h6>Pending Lessons</h6>
+                <p>
+                  {{ pendingLessons }} lesson{{ pendingLessons > 1 ? 's' : '' }} waiting for
+                  approval
+                </p>
+              </div>
+              <i class="bi bi-chevron-right"></i>
+            </div>
+            } @if(notificationCount === 0) {
+            <div class="no-notifications">
+              <i class="bi bi-check-circle"></i>
+              <p>No new notifications</p>
+            </div>
+            }
+          </div>
+        </div>
+        }
+      </div>
+      <img src="{{ adminData.profileImage }}" class="rounded-circle" width="50" height="50" />
+      <div class="d-flex flex-column user-name">
+        <h5>{{ adminData.name }}</h5>
+        <p>{{ adminData.role }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- -------------main content section------------- -->
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

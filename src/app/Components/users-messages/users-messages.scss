@@ -1,0 +1,139 @@
+.users-messages-title {
+  color: #2d3748;
+  font-weight: 700;
+  font-size: 1.75rem;
+}
+
+.input-search {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 8px;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+
+  &:focus-within {
+    border-color: #0ab99d;
+    box-shadow: 0 4px 12px rgba(10, 185, 157, 0.15);
+  }
+
+  input {
+    border: none;
+    outline: none;
+    box-shadow: none;
+  }
+
+  input,
+  span i {
+    color: #718096;
+    font-size: 1rem;
+  }
+}
+
+.filter {
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  span {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #718096;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #f7fafc;
+      color: #2d3748;
+    }
+
+    &.active {
+      background-color: #0ab99d;
+      color: #ffffff;
+    }
+  }
+}
+
+.messages-table {
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.messages-list {
+  background-color: #f7fafc;
+  border-radius: 16px 16px 0 0;
+}
+
+.header-row,
+.data-row {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1.2fr 1.5fr 1fr 1fr;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.messages-list ul li {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.message-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  ul li {
+    font-weight: 400;
+    font-size: 0.95rem;
+    color: #2d3748;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+.data-row {
+  background-color: #ffffff;
+
+  &:hover {
+    background-color: #f7fafc;
+    cursor: pointer;
+  }
+
+  &.read-message {
+    background-color: #f7fafc;
+
+    li {
+      color: #a0aec0;
+    }
+  }
+}
+
+.btn-eye {
+  background-color: #0ab99d;
+  color: white;
+  border: none;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #089f8a;
+    color: white;
+  }
+}
