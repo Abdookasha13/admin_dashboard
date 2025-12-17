@@ -51,7 +51,7 @@ export class Services implements OnInit, OnDestroy {
     } else {
       const term = searchTerm.toLowerCase();
       this.filteredServices = this.services.filter((service) =>
-        service.title.toLowerCase().includes(term)
+        service.title.en.toLowerCase().includes(term)
       );
     }
   }

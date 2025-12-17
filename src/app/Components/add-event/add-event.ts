@@ -14,7 +14,15 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './add-event.scss',
 })
 export class AddEvent implements OnInit {
-  event: Ievent = {} as Ievent;
+  event: Ievent = {
+    eventImage: '',
+    title: { en: '', ar: '' },
+    description: { en: '', ar: '' },
+    date: '',
+    startTime: '',
+    endTime: '',
+    location: { en: '', ar: '' },
+  };
   uploading: boolean = false;
   preview: string | ArrayBuffer | null = null;
   eventId: string | null = null;
@@ -34,6 +42,7 @@ export class AddEvent implements OnInit {
         next: (data) => {
           this.event = data;
           this.preview = data.eventImage;
+          console.log('Loaded event for editing:', data);
         },
         error: (error) => {
           this.toastr.error('Error fetching event details');

@@ -5,25 +5,49 @@
 }
 
 <form (ngSubmit)="addCategory()" #form="ngForm" class="add-update-form p-4 w-75 mx-auto">
-  <!-- -------------name---------------------- -->
-  <div class="mb-4">
+  <!-- -------------name en---------------------- -->
+  <div class="mb-2">
     <label for="name" class="form-label">Category Name</label>
     <input
       type="text"
       class="form-control"
       id="name"
-      placeholder="Enter category name"
-      name="name"
+      placeholder="Category name (EN)"
+      name="nameEn"
       required
-      [(ngModel)]="category.name"
-      #name="ngModel"
-      [ngClass]="{ 'is-invalid': (name.touched || name.dirty) && name.invalid }"
+      [(ngModel)]="category.name.en"
+      #nameEn="ngModel"
+      [ngClass]="{ 'is-invalid': (nameEn.touched || nameEn.dirty) && nameEn.invalid }"
     />
-    @if(name.touched && name.errors) {
+    @if(nameEn.touched && nameEn.errors) {
     <div class="invalid-feedback">
-      @if(name.errors['required']) {
+      @if(nameEn.errors['required']) {
       <span>Category name is required.</span>
-      } @if(name.errors['minlength']) {
+      } @if(nameEn.errors['minlength']) {
+      <span>Category name must be at least 3 characters.</span>
+      }
+    </div>
+    }
+  </div>
+
+   <!-- -------------name ar---------------------- -->
+  <div class="mb-4">
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      placeholder="Category name (AR)"
+      name="nameAr"
+      required
+      [(ngModel)]="category.name.ar"
+      #nameAr="ngModel"
+      [ngClass]="{ 'is-invalid': (nameAr.touched || nameAr.dirty) && nameAr.invalid }"
+    />
+    @if(nameAr.touched && nameAr.errors) {
+    <div class="invalid-feedback">
+      @if(nameAr.errors['required']) {
+      <span>Category name is required.</span>
+      } @if(nameAr.errors['minlength']) {
       <span>Category name must be at least 3 characters.</span>
       }
     </div>
@@ -42,7 +66,7 @@
       #icon="ngModel"
       [ngClass]="{ 'is-invalid': (icon.touched || icon.dirty) && icon.invalid }"
     >
-      <option value="undefined" disabled>Choose an icon</option>
+      <option value="" disabled>Choose an icon</option>
       @for(iconOption of categoryIcons; track iconOption.icon) {
       <option [value]="iconOption.icon">
         {{ iconOption.label }}

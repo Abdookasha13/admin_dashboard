@@ -14,7 +14,11 @@ import { CommonModule } from '@angular/common';
   styleUrl: './add-service.scss',
 })
 export class AddService implements OnInit {
-  service: Iservice = {} as Iservice;
+  service: Iservice = {
+    icon: '',
+    title: { en: '', ar: '' },
+    description: { en: '', ar: '' },
+  };
   serviceId: string | null = null;
 
   serviceIcons = [

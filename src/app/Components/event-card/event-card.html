@@ -1,6 +1,6 @@
 <div class="event-card">
   <div class="top-section">
-    <img src="{{ event.eventImage }}" alt="{{ event.title }}" class="img-fluid" />
+    <img src="{{ event.eventImage }}" alt="{{ event.title.en }}" class="img-fluid" />
     <!-- ------------date----------- -->
     <div class="date-circle text-light badge py-2 px-3">
       <span class="date">{{ event.date | date : 'dd - MMM' }}</span>
@@ -9,17 +9,17 @@
     <!-- --------------------location----------------- -->
     <div class="text-light badge location py-2 px-3">
       <i class="fa fa-map-marker-alt me-2"></i>
-      <span>{{ event.location }}</span>
+      <span>{{ event.location.en }}</span>
     </div>
     <!-- --------------------time----------------- -->
     <div class="text-light badge time py-2 px-3">
       <i class="fa fa-clock me-2"></i>
-      <span class="">{{ event.time }}</span>
+      <span class="">{{ event.startTime }} - {{ event.endTime }}</span>
     </div>
   </div>
   <div class="bottom-section p-3">
-    <h2 class="title">{{ event.title }}</h2>
-    <p class="description">{{ event.description }}</p>
+    <h2 class="title">{{ event.title.en }}</h2>
+    <p class="description">{{ event.description.en }}</p>
     <div class="btns d-flex justify-content-between mt-3">
       <button class="btn edite" (click)="navigateToEdit()">Edit</button>
       <button class="btn btn-danger" (click)="openDeleteModal()">Delete</button>

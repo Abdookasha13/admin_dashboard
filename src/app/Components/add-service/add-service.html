@@ -9,54 +9,113 @@
     <div class="col-lg-8">
       <div class="left p-4">
         <!-- ----------------title------------------- -->
-        <div class="mb-4">
-          <label for="title" class="form-label">Title</label>
-          <input
-            type="text"
-            class="form-control"
-            id="title"
-            placeholder="Enter service title"
-            name="title"
-            required
-            [(ngModel)]="service.title"
-            #title="ngModel"
-            [ngClass]="{ 'is-invalid': (title.touched || title.dirty) && title.invalid }"
-          />
-          @if(title.touched && title.errors) {
-          <div class="invalid-feedback">
-            @if(title.errors['required']) {
-            <span>Title is required.</span>
-            } @if(title.errors['minlength']) {
-            <span>Title must be at least 3 characters.</span>
+        <label for="title" class="form-label">Title</label>
+        <div class="row g-4 mb-3">
+          <!-- ----------------title en------------------- -->
+          <div class="col-lg-6">
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              placeholder="Enter title (EN)"
+              name="titleEn"
+              required
+              [(ngModel)]="service.title.en"
+              #titleEn="ngModel"
+              [ngClass]="{ 'is-invalid': (titleEn.touched || titleEn.dirty) && titleEn.invalid }"
+            />
+            @if(titleEn.touched && titleEn.errors) {
+            <div class="invalid-feedback">
+              @if(titleEn.errors['required']) {
+              <span>Title is required.</span>
+              } @if(titleEn.errors['minlength']) {
+              <span>Title must be at least 3 characters.</span>
+              }
+            </div>
             }
           </div>
-          }
+
+          <!-- ----------------title ar------------------- -->
+          <div class="col-lg-6">
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              placeholder="Enter title (AR)"
+              name="titleAr"
+              required
+              [(ngModel)]="service.title.ar"
+              #titleAr="ngModel"
+              [ngClass]="{ 'is-invalid': (titleAr.touched || titleAr.dirty) && titleAr.invalid }"
+            />
+            @if(titleAr.touched && titleAr.errors) {
+            <div class="invalid-feedback">
+              @if(titleAr.errors['required']) {
+              <span>Title is required.</span>
+              } @if(titleAr.errors['minlength']) {
+              <span>Title must be at least 3 characters.</span>
+              }
+            </div>
+            }
+          </div>
         </div>
+
         <!-- ----------------------description---------------------- -->
-        <div class="mb-4">
-          <label for="description" class="form-label">Description</label>
-          <textarea
-            class="form-control"
-            id="description"
-            rows="3"
-            placeholder="Enter service description"
-            name="description"
-            required
-            [(ngModel)]="service.description"
-            #description="ngModel"
-            [ngClass]="{
-              'is-invalid': (description.touched || description.dirty) && description.invalid
-            }"
-          ></textarea>
-          @if(description.touched && description.errors) {
-          <div class="invalid-feedback">
-            @if(description.errors['required']) {
-            <span>Description is required.</span>
-            } @if(description.errors['minlength']) {
-            <span>Description must be at least 10 characters.</span>
+        <label for="description" class="form-label">Description</label>
+        <div class="row g-4">
+          <!-- ----------------------description en---------------------- -->
+          <div class="col-lg-6">
+            <textarea
+              class="form-control"
+              id="description"
+              rows="3"
+              placeholder="Enter description (EN)"
+              name="descriptionEn"
+              required
+              [(ngModel)]="service.description.en"
+              #descriptionEn="ngModel"
+              [ngClass]="{
+                'is-invalid':
+                  (descriptionEn.touched || descriptionEn.dirty) && descriptionEn.invalid
+              }"
+            ></textarea>
+            @if(descriptionEn.touched && descriptionEn.errors) {
+            <div class="invalid-feedback">
+              @if(descriptionEn.errors['required']) {
+              <span>Description is required.</span>
+              } @if(descriptionEn.errors['minlength']) {
+              <span>Description must be at least 10 characters.</span>
+              }
+            </div>
             }
           </div>
-          }
+
+          <!-- ----------------------description ar---------------------- -->
+          <div class="col-lg-6">
+            <textarea
+              class="form-control"
+              id="description"
+              rows="3"
+              placeholder="Enter description (AR)"
+              name="descriptionAr"
+              required
+              [(ngModel)]="service.description.ar"
+              #descriptionAr="ngModel"
+              [ngClass]="{
+                'is-invalid':
+                  (descriptionAr.touched || descriptionAr.dirty) && descriptionAr.invalid
+              }"
+            ></textarea>
+            @if(descriptionAr.touched && descriptionAr.errors) {
+            <div class="invalid-feedback">
+              @if(descriptionAr.errors['required']) {
+              <span>Description is required.</span>
+              } @if(descriptionAr.errors['minlength']) {
+              <span>Description must be at least 10 characters.</span>
+              }
+            </div>
+            }
+          </div>
         </div>
       </div>
     </div>
@@ -75,7 +134,7 @@
             #icon="ngModel"
             [ngClass]="{ 'is-invalid': (icon.touched || icon.dirty) && icon.invalid }"
           >
-            <option value="undefined" disabled selected>Choose an icon</option>
+            <option value="" disabled selected>Choose an icon</option>
             @for(iconOption of serviceIcons; track iconOption.value) {
             <option [value]="iconOption.value">
               {{ iconOption.label }}

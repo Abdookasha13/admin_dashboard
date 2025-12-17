@@ -1,5 +1,9 @@
 export interface Icategory {
-    _id?: string;
-    name: string;
-    icon: string;
+  _id?: string;
+  name: {
+    en: string;
+    ar: string;
+  };
+  icon?: string;
+  coursesCount?: number;
 }

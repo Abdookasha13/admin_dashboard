@@ -3,8 +3,9 @@
     <i class="{{ category.icon }}"></i>
   </div>
 
-  <h5 class="category-name">{{ category.name }}</h5>
-  <div class="btns d-flex justify-content-between mt-3">
+  <h5 class="category-name">{{ category.name.en }}</h5>
+  <p class="courses-count py-1 px-2"><i class="bi bi-book"></i> {{ category.coursesCount || 0 }} Courses</p>
+  <div class="btns d-flex justify-content-between mt-2">
     <button class="btn edite" (click)="navigateToEdit()">Edit</button>
     <button class="btn btn-danger" (click)="openDeleteModal()">Delete</button>
   </div>

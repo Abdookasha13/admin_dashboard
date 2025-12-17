@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Icategory } from '../../Models/icategory';
 import { CategoryService } from '../../Services/category-service';
 import { SearchService } from '../../Services/search-service';
-import { Router } from '@angular/router';
 import { CategoryCard } from '../category-card/category-card';
 import { Subscription } from 'rxjs';
 import { Loader } from "../loader/loader";
@@ -21,7 +20,6 @@ export class Categories implements OnInit, OnDestroy {
 
   constructor(
     private categoryService: CategoryService,
-    private router: Router,
     private searchService: SearchService
   ) {}
 
@@ -30,6 +28,7 @@ export class Categories implements OnInit, OnDestroy {
       next: (data) => {
         this.categories = data;
         this.filteredCategories = data;
+        console.log("cat", data);        
         this.loading = false;
       },
       error: (error) => {
@@ -53,7 +52,7 @@ export class Categories implements OnInit, OnDestroy {
     } else {
       const term = searchTerm.toLowerCase();
       this.filteredCategories = this.categories.filter((cat) =>
-        cat.name.toLowerCase().includes(term)
+        cat.name.en.toLowerCase().includes(term)
       );
     }
   }

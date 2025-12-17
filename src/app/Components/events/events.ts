@@ -28,6 +28,7 @@ export class Events implements OnInit, OnDestroy {
       next: (data) => {
         this.events = data;
         this.filteredEvents = data;
+        console.log('Fetched events:', data);
         this.loading = false;
       },
       error: (error) => {
@@ -52,7 +53,7 @@ export class Events implements OnInit, OnDestroy {
       const term = searchTerm.toLowerCase();
       this.filteredEvents = this.events.filter(
         (event) =>
-          event.title.toLowerCase().includes(term) || event.location.toLowerCase().includes(term)
+          event.title.en.toLowerCase().includes(term) || event.location.en.toLowerCase().includes(term)
       );
     }
   }

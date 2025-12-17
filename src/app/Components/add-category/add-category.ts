@@ -13,7 +13,14 @@ import { CommonModule } from '@angular/common';
   styleUrl: './add-category.scss',
 })
 export class AddCategory implements OnInit {
-  category: Icategory = {} as Icategory;
+  category: Icategory = {
+    name: {
+      en: '',
+      ar: '',
+    },
+    icon: '',
+  };
+  
   categoryId: string | null = null;
 
   categoryIcons = [
