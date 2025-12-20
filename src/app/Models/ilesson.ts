@@ -2,7 +2,10 @@ export interface Ilesson {
   _id: string;
   course: {
     _id: string;
-    title: string;
+    title: {
+      en: string;
+      ar: string;
+    };
   };
   instructor: {
     _id: string;
@@ -10,9 +13,15 @@ export interface Ilesson {
     email: string;
     profileImage?: string;
   };
-  title: string;
+  title: {
+    en: string;
+    ar: string;
+  };
   type: string;
-  content?: string;
+  content?: {
+    en: string;
+    ar: string;
+  };
   videoUrl: string;
   duration?: number;
   order?: number;

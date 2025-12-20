@@ -33,7 +33,7 @@
             </button>
           </div>
         </div>
-        <h3 class="lesson-title">{{ lesson.title }}</h3>
+        <h3 class="lesson-title">{{ lesson.title.en }}</h3>
       </div>
 
       <div class="lesson-details">
@@ -43,7 +43,7 @@
               <i class="bi bi-book-fill"></i>
               Course:
             </span>
-            <span class="detail-value">{{ lesson.course.title || 'N/A' }}</span>
+            <span class="detail-value">{{ lesson.course.title.en || 'N/A' }}</span>
           </div>
           <div class="detail-item">
             <span class="detail-label">
@@ -76,7 +76,7 @@
               <i class="bi bi-text-paragraph"></i>
               Content:
             </span>
-            <p class="content-text">{{ lesson.content }}</p>
+            <p class="content-text">{{ lesson.content.en }}</p>
           </div>
         </div>
         }
@@ -104,7 +104,7 @@
     </div>
     <h3 class="modal-title">Confirm Approval</h3>
     <p class="modal-message">
-      Are you sure you want to approve the lesson "<strong>{{ selectedLesson?.title }}</strong
+      Are you sure you want to approve the lesson "<strong>{{ selectedLesson?.title?.en }}</strong
       >"?
       <br />
       The lesson will be added to the course and available to students.
@@ -115,7 +115,7 @@
     </div>
     <h3 class="modal-title">Confirm Rejection</h3>
     <p class="modal-message">
-      Are you sure you want to reject the lesson "<strong>{{ selectedLesson?.title }}</strong
+      Are you sure you want to reject the lesson "<strong>{{ selectedLesson?.title?.en }}</strong
       >"?
       <br />
       The lesson will be permanently deleted and cannot be recovered.
